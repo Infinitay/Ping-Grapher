@@ -30,17 +30,17 @@ public class PingGraphOverlay extends OverlayPanel {
         public Dimension render(Graphics2D graphics) {
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 
-            int tempPing  = pingGraphPlugin.getCurrentPing();
-            int tempTick  = pingGraphPlugin.getCurrentTick();
-            if(pingGraphConfig.warnMaxToggle()) {
-                tempTick  = pingGraphPlugin.getMaxTick();
+            int tempPing = pingGraphPlugin.getCurrentPing();
+            int tempTick = pingGraphPlugin.getCurrentTick();
+            if (pingGraphConfig.warnMaxToggle()) {
+                tempTick = pingGraphPlugin.getMaxTick();
                 tempPing = pingGraphPlugin.getMaxPing();
             }
 
             boolean warning = (tempPing > pingGraphConfig.warnPingVal() || tempTick > pingGraphConfig.warnTickVal());
             warning = warning || (pingGraphPlugin.getCurrentPing() < 0); //warn if ping timed out
 
-            if(!warning && pingGraphConfig.warningHideOverlay()){
+            if (!warning && pingGraphConfig.warningHideOverlay()) {
                 return new Dimension(0, 0);
             }
 
@@ -61,10 +61,10 @@ public class PingGraphOverlay extends OverlayPanel {
             }
 
             boolean hasBottomLabels = !pingGraphConfig.bottomRightLabel().equals(PingGraphConfig.Labels.NONE) ||
-                    !pingGraphConfig.bottomLeftLabel().equals(PingGraphConfig.Labels.NONE);
+                                      !pingGraphConfig.bottomLeftLabel().equals(PingGraphConfig.Labels.NONE);
 
             boolean hasTopLabels = !pingGraphConfig.rightLabel().equals(PingGraphConfig.Labels.NONE) ||
-                    !pingGraphConfig.leftLabel().equals(PingGraphConfig.Labels.NONE);
+                                   !pingGraphConfig.leftLabel().equals(PingGraphConfig.Labels.NONE);
 
 
             marginGraphHeight = pingGraphConfig.fontSize();
@@ -80,7 +80,7 @@ public class PingGraphOverlay extends OverlayPanel {
                 if (!hasTopLabels) {
                     graphHeight += marginGraphHeight;                // remove the extra height for top and bottom text
                 }
-                if (!hasBottomLabels){
+                if (!hasBottomLabels) {
                     graphHeight += marginGraphHeight;
                 }
             }
@@ -121,10 +121,11 @@ public class PingGraphOverlay extends OverlayPanel {
                     graphics.setColor(pingGraphConfig.graphBorderColor());
                 }
 
-                if(pingGraphConfig.hideMargin()){
+                if (pingGraphConfig.hideMargin()) {
                     xOrigin = 0;
-                    if(!hasTopLabels)
+                    if (!hasTopLabels) {
                         yOrigin = 1;
+                    }
                 }
 
                 graphics.drawRect(xOrigin, yOrigin, graphWidth, graphHeight);
@@ -140,7 +141,7 @@ public class PingGraphOverlay extends OverlayPanel {
 
                 //Font Settings
                 Color textColor;
-                if (pingGraphConfig.warningFontToggle() && warning){
+                if (pingGraphConfig.warningFontToggle() && warning) {
                     textColor = pingGraphConfig.warningFontColor();
                 } else {
                     textColor = pingGraphConfig.graphTextColor();
@@ -227,7 +228,7 @@ public class PingGraphOverlay extends OverlayPanel {
 
 
             Color graphColor;
-            if (pingGraphConfig.warningLineToggle() && warning){
+            if (pingGraphConfig.warningLineToggle() && warning) {
                 graphColor = pingGraphConfig.warningLineColor();
             } else {
                 graphColor = pingGraphConfig.graphLineColor();
@@ -292,47 +293,54 @@ public class PingGraphOverlay extends OverlayPanel {
             case LATENCY:
             case PING:
                 String labelType = (setting == PingGraphConfig.Labels.LATENCY) ? "Latency:" : "Ping:";
-                if(!pingGraphConfig.simpleLabels())
+                if (!pingGraphConfig.simpleLabels()) {
                     tempLabel = labelType;
+                }
 
                 tempLabel += pingGraphPlugin.getCurrentPing() + "ms";
 
                 if (pingGraphPlugin.getNoResponseCount() >= pingGraphConfig.noResponseLimit()) {
                     tempLabel = "";
-                    if(!pingGraphConfig.simpleLabels())
+                    if (!pingGraphConfig.simpleLabels()) {
                         tempLabel = labelType;
+                    }
                     tempLabel += pingGraphConfig.noResponseMsg();
                 }
-            break;
+                break;
             case PINGMAX:
-                if(!pingGraphConfig.simpleLabels()) {
+                if (!pingGraphConfig.simpleLabels()) {
                     tempLabel = "Max(P):";
                 }
                 tempLabel += pingGraphPlugin.getMaxPing() + "ms";
                 break;
             case PINGMIN:
-                if(!pingGraphConfig.simpleLabels())
+                if (!pingGraphConfig.simpleLabels()) {
                     tempLabel = "Min(P):";
-                tempLabel +=  pingGraphPlugin.getMinPing() + "ms";
+                }
+                tempLabel += pingGraphPlugin.getMinPing() + "ms";
                 break;
             case TICK:
-                if(!pingGraphConfig.simpleLabels())
+                if (!pingGraphConfig.simpleLabels()) {
                     tempLabel = "Tick:";
+                }
                 tempLabel += pingGraphPlugin.getCurrentTick() + "ms";
                 break;
             case TICKMAX:
-                if(!pingGraphConfig.simpleLabels())
+                if (!pingGraphConfig.simpleLabels()) {
                     tempLabel = "Max(T):";
+                }
                 tempLabel += pingGraphPlugin.getMaxTick() + "ms";
                 break;
             case TICKDEV:
-                if(!pingGraphConfig.simpleLabels())
+                if (!pingGraphConfig.simpleLabels()) {
                     tempLabel = "Tick: +/-";
+                }
                 tempLabel += (Math.abs(pingGraphPlugin.getCurrentTick() - 600)) + "ms";
                 break;
             case TICKDEVMAX:
-                if(!pingGraphConfig.simpleLabels())
+                if (!pingGraphConfig.simpleLabels()) {
                     tempLabel = "Max(T): +/-";
+                }
                 tempLabel += (Math.abs(pingGraphPlugin.getMaxTick() - 600)) + "ms";
                 break;
             case FPS:
@@ -345,7 +353,7 @@ public class PingGraphOverlay extends OverlayPanel {
         return tempLabel;
     }
 
-    private void drawGraph(Graphics2D graphics, int dataStart, LinkedList<Integer> data,int xOrigin, int yOrigin, int height, int width, int maxValue, int minValue, Color lineColor){
+    private void drawGraph(Graphics2D graphics, int dataStart, LinkedList<Integer> data, int xOrigin, int yOrigin, int height, int width, int maxValue, int minValue, Color lineColor) {
         //drawing line graph
         int tempX;
         graphics.setColor(lineColor);
@@ -366,8 +374,9 @@ public class PingGraphOverlay extends OverlayPanel {
             }
 
             if (pingGraphConfig.toggleLineOnly()) {
-                if (!pingGraphConfig.hideMargin())
+                if (!pingGraphConfig.hideMargin()) {
                     tempX -= marginGraphWidth;
+                }
             }
 
             if (oldX != -1 && y >= 0) {
@@ -380,9 +389,9 @@ public class PingGraphOverlay extends OverlayPanel {
     }
 
 
-    private void drawlabel(Graphics2D graphics, String text, int x, int y, Color color){
+    private void drawlabel(Graphics2D graphics, String text, int x, int y, Color color) {
         //draw text shadow
-        graphics.setColor(new Color(0,0,0,color.getAlpha()));
+        graphics.setColor(new Color(0, 0, 0, color.getAlpha()));
         graphics.drawString(text, x + 1, y + 1);
 
         //draw actual text

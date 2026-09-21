@@ -36,7 +36,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @Alpha
     @ConfigItem(
             position = 1,
@@ -47,7 +46,6 @@ public interface PingGraphConfig extends Config {
     default Color graphLineColor() {
         return new Color(255, 255, 0, 255);
     }
-
 
 
     @Alpha
@@ -62,7 +60,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @Alpha
     @ConfigItem(
             position = 3,
@@ -73,7 +70,6 @@ public interface PingGraphConfig extends Config {
     default Color overlayBorderColor() {
         return new Color(17, 17, 17, 70);
     }
-
 
 
     @Alpha
@@ -88,7 +84,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @Alpha
     @ConfigItem(
             position = 5,
@@ -99,7 +94,6 @@ public interface PingGraphConfig extends Config {
     default Color graphBorderColor() {
         return new Color(17, 17, 17, 70);
     }
-
 
 
     @ConfigItem(
@@ -113,7 +107,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 7,
             keyName = "toggleBehind",
@@ -123,7 +116,6 @@ public interface PingGraphConfig extends Config {
     default boolean toggleBehind() {
         return false;
     }
-
 
 
     @ConfigItem(
@@ -137,7 +129,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 9,
             keyName = "hideMargin",
@@ -147,7 +138,6 @@ public interface PingGraphConfig extends Config {
     default boolean hideMargin() {
         return false;
     }
-
 
 
     @ConfigItem(
@@ -162,7 +152,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 10,
             keyName = "graphTicks",
@@ -174,7 +163,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 10,
             keyName = "hideGraph",
@@ -184,7 +172,6 @@ public interface PingGraphConfig extends Config {
     default boolean hideGraph() {
         return false;
     }
-
 
 
     @ConfigItem(
@@ -199,7 +186,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 12,
             keyName = "rightLabel",
@@ -210,7 +196,6 @@ public interface PingGraphConfig extends Config {
     default Labels rightLabel() {
         return Labels.PINGMAX;
     }
-
 
 
     @ConfigItem(
@@ -225,7 +210,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 14,
             keyName = "bottomRightLabel",
@@ -236,7 +220,6 @@ public interface PingGraphConfig extends Config {
     default Labels bottomRightLabel() {
         return Labels.NONE;
     }
-
 
 
     @ConfigItem(
@@ -251,7 +234,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 16,
             keyName = "fontSize",
@@ -264,7 +246,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 17,
             keyName = "fontStyle",
@@ -275,7 +256,6 @@ public interface PingGraphConfig extends Config {
     default FontStyle fontStyle() {
         return FontStyle.REGULAR;
     }
-
 
 
     enum FontStyle {
@@ -293,7 +273,6 @@ public interface PingGraphConfig extends Config {
             return value;
         }
     }
-
 
 
     @AllArgsConstructor
@@ -319,7 +298,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 1,
             keyName = "warnPingVal",
@@ -330,7 +308,6 @@ public interface PingGraphConfig extends Config {
     default int warnPingVal() {
         return 100;
     }
-
 
 
     @ConfigItem(
@@ -345,7 +322,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 3,
             keyName = "warnMaxToggle",
@@ -356,7 +332,6 @@ public interface PingGraphConfig extends Config {
     default boolean warnMaxToggle() {
         return false;
     }
-
 
 
     @ConfigItem(
@@ -371,7 +346,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 5,
             keyName = "warningFontToggle",
@@ -384,7 +358,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @Alpha
     @ConfigItem(
             position = 6,
@@ -394,9 +367,8 @@ public interface PingGraphConfig extends Config {
             section = warnSection
     )
     default Color warningFontColor() {
-            return new Color(255, 17, 17, 255);
+        return new Color(255, 17, 17, 255);
     }
-
 
 
     @ConfigItem(
@@ -409,7 +381,6 @@ public interface PingGraphConfig extends Config {
     default boolean warningLineToggle() {
         return false;
     }
-
 
 
     @Alpha
@@ -425,7 +396,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 9,
             keyName = "warningBGToggle",
@@ -436,7 +406,6 @@ public interface PingGraphConfig extends Config {
     default boolean warningOverlayBGToggle() {
         return false;
     }
-
 
 
     @Alpha
@@ -452,7 +421,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 11,
             keyName = "warnOverlayBorderToggle",
@@ -463,7 +431,6 @@ public interface PingGraphConfig extends Config {
     default boolean warnOverlayBorderToggle() {
         return false;
     }
-
 
 
     @Alpha
@@ -479,7 +446,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 13,
             keyName = "warningGraphBGToggle",
@@ -490,7 +456,6 @@ public interface PingGraphConfig extends Config {
     default boolean warningGraphBGToggle() {
         return false;
     }
-
 
 
     @Alpha
@@ -506,7 +471,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 15,
             keyName = "warningGraphBorderToggle",
@@ -517,7 +481,6 @@ public interface PingGraphConfig extends Config {
     default boolean warnGraphBorderToggle() {
         return false;
     }
-
 
 
     @Alpha
@@ -533,7 +496,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 25,
             keyName = "enablePingSpikes",
@@ -545,7 +507,6 @@ public interface PingGraphConfig extends Config {
     default boolean enablePingSpikes() {
         return false;
     }
-
 
 
     @ConfigItem(
@@ -560,7 +521,6 @@ public interface PingGraphConfig extends Config {
     }
 
 
-
     @ConfigItem(
             position = 27,
             keyName = "noResponseMsg",
@@ -570,7 +530,6 @@ public interface PingGraphConfig extends Config {
     default String noResponseMsg() {
         return "-";
     }
-
 
 
     @ConfigItem(

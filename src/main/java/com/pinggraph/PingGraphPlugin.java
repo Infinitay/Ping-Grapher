@@ -39,9 +39,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @PluginDescriptor(
-    name = "Ping Grapher",
-    description = "Graphs the ping to the current world",
-    tags = {"ping", "graph", "latency", "tick", "network", "lag", "fps"}
+        name = "Ping Grapher",
+        description = "Graphs the ping to the current world",
+        tags = {"ping", "graph", "latency", "tick", "network", "lag", "fps"}
 )
 public class PingGraphPlugin extends Plugin {
 
@@ -91,13 +91,17 @@ public class PingGraphPlugin extends Plugin {
     protected void startUp() throws Exception {
         write(pingLock, () -> {
             pingList.clear();
-            for (int i = 0; i < numCells; i++) pingList.add(1);
+            for (int i = 0; i < numCells; i++) {
+                pingList.add(1);
+            }
             return null;
         });
 
         write(tickLock, () -> {
             tickTimeList.clear();
-            for (int i = 0; i < numCells; i++) tickTimeList.add(600);
+            for (int i = 0; i < numCells; i++) {
+                tickTimeList.add(600);
+            }
             return null;
         });
 
@@ -164,10 +168,12 @@ public class PingGraphPlugin extends Plugin {
         maxPing = temp[0];
         minPing = temp[1];
 
-        if(config.enablePingSpikes() != resetGraphToggle){
+        if (config.enablePingSpikes() != resetGraphToggle) {
             write(pingLock, () -> {
                 pingList.clear();
-                for (int i = 0; i < numCells; i++) pingList.add(1);
+                for (int i = 0; i < numCells; i++) {
+                    pingList.add(1);
+                }
                 return null;
             });
             resetGraphToggle = !resetGraphToggle;
@@ -192,9 +198,9 @@ public class PingGraphPlugin extends Plugin {
             }
         }
 
-        if(currentPing < 0) {
+        if (currentPing < 0) {
             noResponseCount++;
-            if(config.enablePingSpikes()){
+            if (config.enablePingSpikes()) {
                 write(pingLock, () -> {
                     pingList.add(currentPing);
                     return pingList.remove();
@@ -223,13 +229,15 @@ public class PingGraphPlugin extends Plugin {
         for (int i = start; i < list.size(); i++) {
             int val = list.get(i);
             if (val > 0) {
-                if (maxVal < val)
+                if (maxVal < val) {
                     maxVal = val;
-                if (minVal > val)
+                }
+                if (minVal > val) {
                     minVal = val;
+                }
             }
         }
-        return new int[] { maxVal, minVal };
+        return new int[]{maxVal, minVal};
     }
 
     public static <T> T read(ReadWriteLock lock, Supplier<T> supplier) {
