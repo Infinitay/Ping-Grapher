@@ -184,31 +184,47 @@ public class PingGraphPlugin extends Plugin {
     private void pingCurrentWorld() {
         WorldResult worldResult = worldService.getWorlds();
         // There is no reason to ping the current world if not logged in, as the overlay doesn't draw
-        if (worldResult == null || client.getGameState() != GameState.LOGGED_IN) return;
+        if (worldResult == null || client.getGameState() != GameState.LOGGED_IN) {
+            return;
+        }
         final World currentWorld = worldResult.findWorld(client.getWorld());
-        if (currentWorld == null) return;
+        if (currentWorld == null) {
+            return;
+        }
 
         int lastPing = currentPing;
         currentPing = -1;
+        // Fetch the ping via ICMP otherwise fallback on TCP ping
+        int ping = Ping.ping(currentWorld, true);
+
+        // Fetch the ping via TCP RTT (via OS) if ICMP/TCP ping fails
+        int pingRTT = -1;
         FileDescriptor fd = this.client.getSocketFD();
         if (fd != null) {
             TCPInfo tcpInfo = Ping.getTCPInfo(fd);
             if (tcpInfo != null) {
-                currentPing = (int) (tcpInfo.getRTT() / 1000L);
+                pingRTT = (int) (tcpInfo.getRTT() / 1000L);
             }
         }
 
-        if (currentPing < 0) {
+        // Fallback to using RTT ping (pingRTT) if ICMP ping (ping) fails
+        if (ping < 0) {
+            ping = pingRTT;
+        }
+
+        if (ping < 0) {
             noResponseCount++;
             if (config.enablePingSpikes()) {
+                int finalPing = ping;
                 write(pingLock, () -> {
-                    pingList.add(currentPing);
+                    pingList.add(finalPing);
                     return pingList.remove();
                 });
             }
             currentPing = lastPing;
         } else {
             noResponseCount = 0;
+            currentPing = ping;
             write(pingLock, () -> {
                 pingList.add(currentPing);
                 return pingList.remove(); // remove the first ping
