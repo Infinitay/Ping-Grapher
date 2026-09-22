@@ -194,10 +194,13 @@ public class PingGraphPlugin extends Plugin {
 
         int lastPing = currentPing;
         currentPing = -1;
-        // Fetch the ping via ICMP otherwise fallback on TCP ping
-        int ping = Ping.ping(currentWorld, true);
 
-        // Fetch the ping via TCP RTT (via OS) if ICMP/TCP ping fails
+        // Pinging priority (priorities 2 and 3 are only used if TCP RTT fails)
+        // 1. TCP RTT via OS call
+        // 2. ICMP
+        // 3. TCP (only if ICMP fails and TCP fallback is enabled, which it is due to `Ping.ping(currentWorld, true)`)
+
+        // Fetch the ping via TCP RTT (via OS)
         int pingRTT = -1;
         FileDescriptor fd = this.client.getSocketFD();
         if (fd != null) {
@@ -207,9 +210,11 @@ public class PingGraphPlugin extends Plugin {
             }
         }
 
-        // Fallback to using RTT ping (pingRTT) if ICMP ping (ping) fails
+        int ping = pingRTT;
+        // If TCP RTT fails, fallback to ICMP ping (or TCP ping if ICMP fails)
         if (ping < 0) {
-            ping = pingRTT;
+            // Fetch the ping via ICMP otherwise fallback on TCP ping
+            ping = Ping.ping(currentWorld, true);
         }
 
         if (ping < 0) {
